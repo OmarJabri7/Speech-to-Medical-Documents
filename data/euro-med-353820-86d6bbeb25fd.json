@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "euro-med-353820",
+  "private_key_id": "86d6bbeb25fdbed86a50774697da4a4704bf99d2",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCqocetiGMmclpR\nQflo2zru4YZv6E48sW7UiV4ljTbt8iBcmWRkppW6HCl0No1q63Zr8jUaTpQLMZl9\nX1JCXZaENr60ef/xdSvsEjnGczmz+DhPyz2nncydl6RW+Uh3Dv/NqL8Z0EqHMIHx\nfqiVGVUrufdwSv/+emoJtiLPhRFIU4lMItxp31WPppbwI1Ja/tjRttIPzH7yCCn8\nyz7J09fOFX1c/gE5R1+DKUbqriSZ67gksGdkTchxdwuk5zOXDNNAwSBmLBKF893F\n8Qke6q0el4CkGDBFZ4jWYm8uqmpRiD9FHTl3jDLQ+eAZRuGTmtylvjPNUu6Grqul\nEn9GYLndAgMBAAECggEAFHIFn861mLP/i/iEhtKsBVcbGXojs8SL8+YQ1J2O3SST\nyZysqZ3HV5FLy0vFFrBnlGglgkUzmoLDMkFTdTXLFQUNRUlQCHHihSsq5pNEcQLX\nVoJTHSw8ig6TR8OfcfqnXpBvc4ugfoHqtBHZ5+Gs8awbEMa/1VF8NrUvByAZ8ck0\nOsszMzFrNrP+R8cndu9z1YXPrhVfBbbGVIrZoT3xM7nLEecfZZ1jLcqqSTh85dso\nXd4FDR09EkgR2fd3o2tdAu69W9IECj++74JfhHaly6fLSm2WFoHulzUEG7ydkENS\nzv45wj14DeX8ZGBEaP3hBtaE94KfAzrdBrPyiK7/2QKBgQDrhyvm1l0hy751p2np\nXKRVwLNMzTqvYT57p8qhqheMgy89DR3+JG7yNQLOgDjx7FKpg93p8wXHliUPvC/Q\niVj0ITaMyXe5dhz6lNGEJ4yFr6Ofm0SWTganbyPEWHmCM51DXqHHgCAH5TyRPsIb\nXOWZvJGhhXANF6Zf/dvflSkRKQKBgQC5dpSGDhCJe6yzX1F3EukcseooxNy0uY15\ntIoCWi1JpiF76BpS4Ouq8B7bETsPYJpYgdsbc1eH/cxgZcJ98bDkE7Dv91IFxsPm\na0vF6TCFlrjG4+DglUau4o8jbqui1mvqMkKImaYz0zLQRaliCJHO55dspreHqow+\ndtw3VdJ1lQKBgC7IyOWviwxdhlWkjZs3NcV646LL2W5g6KJzcAKw4MCehlGgO2by\nIb+m3Anc2nLjuH/Hm9sO1QUSRAZeITlRLwQ/XLCWjFugpJz51qxjlrwvaVcY5oTc\ntuGnZ/lmgaxlSEXLlGMmhjZLSL6pMrFwwILLPDpTYTCYlAnZSUWeQWwRAoGASjSl\n7JVIDJpNWV+0Cr6oQvD0zecmn7D2aFHSPmqyYBt2nksZ7TtNUBHPZruYM+jlGLCs\naGlYBnOICLHuhdHkgv1V+E2upd0HmPQpV0CcR3cs63dWDMXtiB/iQb0QM5EzkHsX\nn+xKUcYZOLgGs9DV9kE3lyOFn2SfxIZuSj2ufZkCgYA0txjyOiVojHu3ReT2aAnO\nDD+Eyj9qXsk/D47BYRd5Z3q0SHR2tYhzgMeJ3naDBJmViah/UYBvrEASmkzRUemK\n6Ysz0GqErNUDSAneoIRCkGZwl0kU+qFgPieewrJc0ttPXtrODatHCagouuHHoO5N\nqm4qhIMU9S0Y0ty+k2M7Ug==\n-----END PRIVATE KEY-----\n",
+  "client_email": "euro-med-speech@euro-med-353820.iam.gserviceaccount.com",
+  "client_id": "110503505369748463857",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/euro-med-speech%40euro-med-353820.iam.gserviceaccount.com"
+}
