@@ -130,9 +130,8 @@ def listen_print_loop(responses):
 
         else:
             res = transcript + overwrite_chars
-            if "euro" in res or "euro-med" in res:
-            print(transcript + overwrite_chars)
-            doctor_notes.append(transcript + overwrite_chars)
+            print(res)
+            doctor_notes.append(res)
             # Exit recognition if any of the transcribed phrases could be
             # one of our keywords.
             if re.search(r"\b(exit|quit)\b", transcript, re.I):
