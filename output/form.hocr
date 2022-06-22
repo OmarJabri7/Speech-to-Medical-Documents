@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+ <head>
+  <title></title>
+  <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+  <meta name='ocr-system' content='tesseract 5.1.0' />
+  <meta name='ocr-capabilities' content='ocr_page ocr_carea ocr_par ocr_line ocrx_word ocrp_wconf'/>
+ </head>
+ <body>
+  <div class='ocr_page' id='page_1' title='image "/Users/omar/Documents/Projects/Euro-Med/data/form.jpeg"; bbox 0 0 736 1040; ppageno 0; scan_res 300 300'>
+   <div class='ocr_carea' id='block_1_1' title="bbox 52 54 448 141">
+    <p class='ocr_par' id='par_1_1' lang='eng' title="bbox 52 54 448 141">
+     <span class='ocr_line' id='line_1_1' title="bbox 52 54 448 93; baseline 0 -10; x_size 39; x_descenders 10; x_ascenders 11">
+      <span class='ocrx_word' id='word_1_1' title='bbox 52 54 241 93; x_wconf 93'>nightingale</span>
+      <span class='ocrx_word' id='word_1_2' title='bbox 249 55 448 83; x_wconf 90'>hammerson</span>
+     </span>
+     <span class='ocr_line' id='line_1_2' title="bbox 54 115 365 141; baseline 0 -5; x_size 26; x_descenders 5; x_ascenders 6">
+      <span class='ocrx_word' id='word_1_3' title='bbox 54 115 159 141; x_wconf 96'>Hospital</span>
+      <span class='ocrx_word' id='word_1_4' title='bbox 168 115 269 136; x_wconf 96'>Medical</span>
+      <span class='ocrx_word' id='word_1_5' title='bbox 278 115 365 141; x_wconf 96'>Report</span>
+     </span>
+    </p>
+   </div>
+   <div class='ocr_separator' id='block_1_2' title="bbox 56 157 370 168"></div>
+   <div class='ocr_separator' id='block_1_3' title="bbox 45 213 691 230"></div>
+   <div class='ocr_separator' id='block_1_4' title="bbox 45 222 47 250"></div>
+   <div class='ocr_separator' id='block_1_5' title="bbox 45 242 691 259"></div>
+   <div class='ocr_separator' id='block_1_6' title="bbox 45 271 691 288"></div>
+   <div class='ocr_carea' id='block_1_7' title="bbox 45 163 678 337">
+    <p class='ocr_par' id='par_1_2' lang='eng' title="bbox 45 163 678 337">
+     <span class='ocr_line' id='line_1_3' title="bbox 171 163 248 170; baseline 0 0; x_size 24; x_descenders 6; x_ascenders 6">
+      <span class='ocrx_word' id='word_1_6' title='bbox 171 164 177 170; x_wconf 35'>I</span>
+      <span class='ocrx_word' id='word_1_7' title='bbox 242 163 248 170; x_wconf 17'>ft</span>
+     </span>
+     <span class='ocr_line' id='line_1_4' title="bbox 53 189 231 203; baseline 0.006 -1; x_size 18.666666; x_descenders 4.6666665; x_ascenders 4.666667">
+      <span class='ocrx_word' id='word_1_8' title='bbox 53 189 108 203; x_wconf 93'>Private</span>
+      <span class='ocrx_word' id='word_1_9' title='bbox 114 189 128 203; x_wconf 93'>&amp;</span>
+      <span class='ocrx_word' id='word_1_10' title='bbox 134 189 231 203; x_wconf 96'>Confidential</span>
+     </span>
+     <span class='ocr_line' id='line_1_5' title="bbox 54 224 604 233; baseline 0 0; x_size 24; x_descenders 6; x_ascenders 6">
+      <span class='ocrx_word' id='word_1_11' title='bbox 54 224 96 233; x_wconf 70'>Patients</span>
+      <span class='ocrx_word' id='word_1_12' title='bbox 100 225 128 233; x_wconf 95'>Name</span>
+      <span class='ocrx_word' id='word_1_13' title='bbox 542 225 564 233; x_wconf 68'>Date</span>
+      <span class='ocrx_word' id='word_1_14' title='bbox 570 224 578 233; x_wconf 77'>of</span>
+      <span class='ocrx_word' id='word_1_15' title='bbox 581 225 604 233; x_wconf 36'>bith</span>
+     </span>
+     <span class='ocr_line' id='line_1_6' title="bbox 45 241 498 279; baseline 0 -17; x_size 24; x_descenders 6; x_ascenders 6">
+      <span class='ocrx_word' id='word_1_16' title='bbox 45 251 80 279; x_wconf 43'>hia</span>
+      <span class='ocrx_word' id='word_1_17' title='bbox 215 241 255 273; x_wconf 0'>Hospital</span>
+      <span class='ocrx_word' id='word_1_18' title='bbox 445 253 498 262; x_wconf 27'>Consohant</span>
+     </span>
+     <span class='ocr_line' id='line_1_7' title="bbox 53 297 114 306; baseline 0 0; x_size 24; x_descenders 6; x_ascenders 6">
+      <span class='ocrx_word' id='word_1_19' title='bbox 53 297 77 306; x_wconf 88'>Dear</span>
+      <span class='ocrx_word' id='word_1_20' title='bbox 80 297 114 306; x_wconf 94'>Doctor</span>
+     </span>
+     <span class='ocr_line' id='line_1_8' title="bbox 256 325 678 337; baseline 0 -3; x_size 24; x_descenders 6; x_ascenders 6">
+      <span class='ocrx_word' id='word_1_21' title='bbox 256 325 293 337; x_wconf 21'>patient</span>
+      <span class='ocrx_word' id='word_1_22' title='bbox 297 325 324 334; x_wconf 54'>under</span>
+      <span class='ocrx_word' id='word_1_23' title='bbox 328 328 350 337; x_wconf 74'>your</span>
+      <span class='ocrx_word' id='word_1_24' title='bbox 353 328 376 335; x_wconf 69'>care,</span>
+      <span class='ocrx_word' id='word_1_25' title='bbox 618 325 627 334; x_wconf 71'>In</span>
+      <span class='ocrx_word' id='word_1_26' title='bbox 631 325 657 334; x_wconf 55'>onder</span>
+      <span class='ocrx_word' id='word_1_27' title='bbox 661 325 678 334; x_wconf 55'>that</span>
+     </span>
+    </p>
+   </div>
+   <div class='ocr_separator' id='block_1_8' title="bbox 56 319 608 338"></div>
+   <div class='ocr_carea' id='block_1_9' title="bbox 53 339 541 351">
+    <p class='ocr_par' id='par_1_3' lang='eng' title="bbox 53 339 541 351">
+     <span class='ocr_line' id='line_1_9' title="bbox 53 339 541 351; baseline 0 -3; x_size 20; x_descenders 5; x_ascenders 5">
+      <span class='ocrx_word' id='word_1_28' title='bbox 49 329 66 357; x_wconf 75'>‘we</span>
+      <span class='ocrx_word' id='word_1_29' title='bbox 70 329 84 357; x_wconf 82'>ean</span>
+      <span class='ocrx_word' id='word_1_30' title='bbox 91 339 118 351; x_wconf 96'>safely</span>
+      <span class='ocrx_word' id='word_1_31' title='bbox 124 339 144 348; x_wconf 89'>look</span>
+      <span class='ocrx_word' id='word_1_32' title='bbox 148 325 171 348; x_wconf 26'>we</span>
+      <span class='ocrx_word' id='word_1_33' title='bbox 174 339 215 348; x_wconf 27'>auton</span>
+      <span class='ocrx_word' id='word_1_34' title='bbox 219 339 258 348; x_wconf 31'>neue</span>
+      <span class='ocrx_word' id='word_1_35' title='bbox 263 342 280 351; x_wconf 54'>{you</span>
+      <span class='ocrx_word' id='word_1_36' title='bbox 284 341 293 348; x_wconf 82'>to</span>
+      <span class='ocrx_word' id='word_1_37' title='bbox 297 339 318 348; x_wconf 95'>send</span>
+      <span class='ocrx_word' id='word_1_38' title='bbox 322 342 333 348; x_wconf 82'>us</span>
+      <span class='ocrx_word' id='word_1_39' title='bbox 337 339 394 348; x_wconf 82'>information</span>
+      <span class='ocrx_word' id='word_1_40' title='bbox 397 339 424 348; x_wconf 96'>about</span>
+      <span class='ocrx_word' id='word_1_41' title='bbox 428 339 462 348; x_wconf 96'>his/her</span>
+      <span class='ocrx_word' id='word_1_42' title='bbox 465 339 503 348; x_wconf 95'>medical</span>
+      <span class='ocrx_word' id='word_1_43' title='bbox 507 339 541 351; x_wconf 89'>history.</span>
+     </span>
+    </p>
+   </div>
+   <div class='ocr_separator' id='block_1_10' title="bbox 90 366 469 381"></div>
+   <div class='ocr_carea' id='block_1_11' title="bbox 53 368 85 377">
+    <p class='ocr_par' id='par_1_4' lang='eng' title="bbox 53 368 85 377">
+     <span class='ocr_line' id='line_1_10' title="bbox 53 368 85 377; baseline 0 0; x_size 20; x_descenders 5; x_ascenders 5">
+      <span class='ocrx_word' id='word_1_44' title='bbox 53 368 85 377; x_wconf 89'>Please</span>
+     </span>
+    </p>
+   </div>
+   <div class='ocr_separator' id='block_1_12' title="bbox 90 368 469 382"></div>
+   <div class='ocr_separator' id='block_1_13' title="bbox 45 385 691 403"></div>
+   <div class='ocr_carea' id='block_1_14' title="bbox 54 397 281 408">
+    <p class='ocr_par' id='par_1_5' lang='eng' title="bbox 54 397 281 408">
+     <span class='ocr_line' id='line_1_11' title="bbox 54 397 281 408; baseline 0 -2; x_size 20; x_descenders 5; x_ascenders 5">
+      <span class='ocrx_word' id='word_1_45' title='bbox 54 397 83 406; x_wconf 89'>When</span>
+      <span class='ocrx_word' id='word_1_46' title='bbox 88 400 112 406; x_wconf 93'>were</span>
+      <span class='ocrx_word' id='word_1_47' title='bbox 116 397 138 408; x_wconf 96'>they</span>
+      <span class='ocrx_word' id='word_1_48' title='bbox 142 397 188 406; x_wconf 95'>admitted</span>
+      <span class='ocrx_word' id='word_1_49' title='bbox 192 398 202 406; x_wconf 95'>to</span>
+      <span class='ocrx_word' id='word_1_50' title='bbox 205 400 230 408; x_wconf 95'>your</span>
+      <span class='ocrx_word' id='word_1_51' title='bbox 234 397 281 408; x_wconf 94'>hospital?</span>
+     </span>
+    </p>
+   </div>
+   <div class='ocr_separator' id='block_1_15' title="bbox 45 457 691 474"></div>
+   <div class='ocr_separator' id='block_1_16' title="bbox 45 472 691 489"></div>
+   <div class='ocr_carea' id='block_1_17' title="bbox 54 484 285 495">
+    <p class='ocr_par' id='par_1_6' lang='eng' title="bbox 54 484 285 495">
+     <span class='ocr_line' id='line_1_12' title="bbox 54 484 285 495; baseline 0.004 -3; x_size 20; x_descenders 5; x_ascenders 5">
+      <span class='ocrx_word' id='word_1_52' title='bbox 54 484 91 493; x_wconf 96'>Reason</span>
+      <span class='ocrx_word' id='word_1_53' title='bbox 94 484 110 493; x_wconf 93'>for</span>
+      <span class='ocrx_word' id='word_1_54' title='bbox 113 484 165 493; x_wconf 96'>admission</span>
+      <span class='ocrx_word' id='word_1_55' title='bbox 169 484 188 493; x_wconf 96'>and</span>
+      <span class='ocrx_word' id='word_1_56' title='bbox 194 474 232 502; x_wconf 96'>medical</span>
+      <span class='ocrx_word' id='word_1_57' title='bbox 239 474 285 502; x_wconf 92'>diagnosis</span>
+     </span>
+    </p>
+   </div>
+   <div class='ocr_separator' id='block_1_18' title="bbox 45 586 691 603"></div>
+   <div class='ocr_separator' id='block_1_19' title="bbox 53 594 691 622"></div>
+   <div class='ocr_separator' id='block_1_20' title="bbox 45 601 691 618"></div>
+   <div class='ocr_separator' id='block_1_21' title="bbox 45 729 691 746"></div>
+   <div class='ocr_separator' id='block_1_22' title="bbox 46 744 691 761"></div>
+   <div class='ocr_carea' id='block_1_23' title="bbox 53 756 145 767">
+    <p class='ocr_par' id='par_1_7' lang='eng' title="bbox 53 756 145 767">
+     <span class='ocr_line' id='line_1_13' title="bbox 53 756 145 767; baseline 0 -2; x_size 20; x_descenders 5; x_ascenders 5">
+      <span class='ocrx_word' id='word_1_58' title='bbox 53 756 98 767; x_wconf 83'>Progress</span>
+      <span class='ocrx_word' id='word_1_59' title='bbox 102 758 114 765; x_wconf 96'>on</span>
+      <span class='ocrx_word' id='word_1_60' title='bbox 118 756 145 765; x_wconf 91'>ward</span>
+     </span>
+    </p>
+   </div>
+   <div class='ocr_separator' id='block_1_24' title="bbox 45 858 691 876"></div>
+   <div class='ocr_separator' id='block_1_25' title="bbox 46 873 691 890"></div>
+   <div class='ocr_carea' id='block_1_26' title="bbox 53 885 188 894">
+    <p class='ocr_par' id='par_1_8' lang='eng' title="bbox 53 885 188 894">
+     <span class='ocr_line' id='line_1_14' title="bbox 53 885 188 894; baseline 0 0; x_size 20; x_descenders 5; x_ascenders 5">
+      <span class='ocrx_word' id='word_1_61' title='bbox 53 885 95 894; x_wconf 86'>‘Current</span>
+      <span class='ocrx_word' id='word_1_62' title='bbox 99 885 136 894; x_wconf 94'>clinical</span>
+      <span class='ocrx_word' id='word_1_63' title='bbox 140 885 188 894; x_wconf 34'>condition</span>
+     </span>
+    </p>
+   </div>
+   <div class='ocr_separator' id='block_1_27' title="bbox 39 480 53 983"></div>
+   <div class='ocr_separator' id='block_1_28' title="bbox 684 480 697 982"></div>
+   <div class='ocr_separator' id='block_1_29' title="bbox 45 973 691 991"></div>
+  </div>
+ </body>
+</html>

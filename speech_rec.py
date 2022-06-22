@@ -1,84 +1,182 @@
-#!/usr/bin/env python3
-"""Create a recording with arbitrary duration.
-The soundfile module (https://PySoundFile.readthedocs.io/) has to be installed!
-"""
-import argparse
-import tempfile
-import queue
+from __future__ import division
+
+import re
 import sys
-from datetime import datetime
 
-import sounddevice as sd
-import soundfile as sf
-import numpy  # Make sure NumPy is loaded before it is used in the callback
-assert numpy  # avoid "imported but unused" message (W0611)
+from google.cloud import speech
+from utils.utils_pdf import do_pdf
+from doc_analysis import analyze_doc
 
+import pyaudio
+from six.moves import queue
+import os
+print(os.getcwd())
+print(os.listdir())
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "data/euro-med-353820-86d6bbeb25fd.json"
 
-def int_or_str(text):
-    """Helper function for argument parsing."""
-    try:
-        return int(text)
-    except ValueError:
-        return text
+# Audio recording parameters
+RATE = 16000
+CHUNK = int(RATE / 10)  # 100ms
 
-
-parser = argparse.ArgumentParser(add_help=False)
-parser.add_argument(
-    '-l', '--list-devices', action='store_true',
-    help='show list of audio devices and exit')
-args, remaining = parser.parse_known_args()
-if args.list_devices:
-    print(sd.query_devices())
-    parser.exit(0)
-parser = argparse.ArgumentParser(
-    description=__doc__,
-    formatter_class=argparse.RawDescriptionHelpFormatter,
-    parents=[parser])
-parser.add_argument(
-    'filename', nargs='?', metavar='FILENAME',
-    help='audio file to store recording to')
-parser.add_argument(
-    '-d', '--device', type=int_or_str,
-    help='input device (numeric ID or substring)')
-parser.add_argument(
-    '-r', '--samplerate', type=int, help='sampling rate')
-parser.add_argument(
-    '-c', '--channels', type=int, default=1, help='number of input channels')
-parser.add_argument(
-    '-t', '--subtype', type=str, help='sound file subtype (e.g. "PCM_24")')
-args = parser.parse_args(remaining)
-
-q = queue.Queue()
+doctor_notes = []
 
 
-def callback(indata, frames, time, status):
-    """This is called (from a separate thread) for each audio block."""
-    if status:
-        print(status, file=sys.stderr)
-    q.put(indata.copy())
+class MicrophoneStream(object):
+    """Opens a recording stream as a generator yielding the audio chunks."""
 
+    def __init__(self, rate, chunk):
+        self._rate = rate
+        self._chunk = chunk
 
-try:
-    if args.samplerate is None:
-        device_info = sd.query_devices(args.device, 'input')
-        # soundfile expects an int, sounddevice provides a float:
-        args.samplerate = int(device_info['default_samplerate'])
-    if args.filename is None:
-        args.filename = tempfile.mktemp(prefix=datetime.today().strftime("%Y-%m-%d %H:%M:%S"),
-                                        suffix='.wav', dir='')
+        # Create a thread-safe buffer of audio data
+        self._buff = queue.Queue()
+        self.closed = True
 
-    # Make sure the file is opened before recording anything:
-    with sf.SoundFile(args.filename, mode='x', samplerate=args.samplerate,
-                      channels=args.channels, subtype=args.subtype) as file:
-        with sd.InputStream(samplerate=args.samplerate, device=args.device,
-                            channels=args.channels, callback=callback):
-            print('#' * 80)
-            print('press Ctrl+C to stop the recording')
-            print('#' * 80)
+    def __enter__(self):
+        self._audio_interface = pyaudio.PyAudio()
+        self._audio_stream = self._audio_interface.open(
+            format=pyaudio.paInt16,
+            # The API currently only supports 1-channel (mono) audio
+            # https://goo.gl/z757pE
+            channels=1,
+            rate=self._rate,
+            input=True,
+            frames_per_buffer=self._chunk,
+            # Run the audio stream asynchronously to fill the buffer object.
+            # This is necessary so that the input device's buffer doesn't
+            # overflow while the calling thread makes network requests, etc.
+            stream_callback=self._fill_buffer,
+        )
+
+        self.closed = False
+
+        return self
+
+    def __exit__(self, type, value, traceback):
+        self._audio_stream.stop_stream()
+        self._audio_stream.close()
+        self.closed = True
+        # Signal the generator to terminate so that the client's
+        # streaming_recognize method will not block the process termination.
+        self._buff.put(None)
+        self._audio_interface.terminate()
+
+    def _fill_buffer(self, in_data, frame_count, time_info, status_flags):
+        """Continuously collect data from the audio stream, into the buffer."""
+        self._buff.put(in_data)
+        return None, pyaudio.paContinue
+
+    def generator(self):
+        while not self.closed:
+            # Use a blocking get() to ensure there's at least one chunk of
+            # data, and stop iteration if the chunk is None, indicating the
+            # end of the audio stream.
+            chunk = self._buff.get()
+            if chunk is None:
+                return
+            data = [chunk]
+
+            # Now consume whatever other data's still buffered.
             while True:
-                file.write(q.get())
-except KeyboardInterrupt:
-    print('\nRecording finished: ' + repr(args.filename))
-    parser.exit(0)
-except Exception as e:
-    parser.exit(type(e).__name__ + ': ' + str(e))
+                try:
+                    chunk = self._buff.get(block=False)
+                    if chunk is None:
+                        return
+                    data.append(chunk)
+                except queue.Empty:
+                    break
+
+            yield b"".join(data)
+
+
+def listen_print_loop(responses):
+    """Iterates through server responses and prints them.
+
+    The responses passed is a generator that will block until a response
+    is provided by the server.
+
+    Each response may contain multiple results, and each result may contain
+    multiple alternatives; for details, see https://goo.gl/tjCPAU.  Here we
+    print only the transcription for the top alternative of the top result.
+
+    In this case, responses are provided for interim results as well. If the
+    response is an interim one, print a line feed at the end of it, to allow
+    the next result to overwrite it, until the response is a final one. For the
+    final one, print a newline to preserve the finalized transcription.
+    """
+    num_chars_printed = 0
+    for response in responses:
+        if not response.results:
+            continue
+
+        # The `results` list is consecutive. For streaming, we only care about
+        # the first result being considered, since once it's `is_final`, it
+        # moves on to considering the next utterance.
+        result = response.results[0]
+        if not result.alternatives:
+            continue
+
+        # Display the transcription of the top alternative.
+        transcript = result.alternatives[0].transcript
+
+        # Display interim results, but with a carriage return at the end of the
+        # line, so subsequent lines will overwrite them.
+        #
+        # If the previous result was longer than this one, we need to print
+        # some extra spaces to overwrite the previous result
+        overwrite_chars = " " * (num_chars_printed - len(transcript))
+
+        if not result.is_final:
+            sys.stdout.write(transcript + overwrite_chars + "\r")
+            sys.stdout.flush()
+
+            num_chars_printed = len(transcript)
+
+        else:
+            res = transcript + overwrite_chars
+            print(res)
+            doctor_notes.append(res)
+            # Exit recognition if any of the transcribed phrases could be
+            # one of our keywords.
+            if re.search(r"\b(exit|quit)\b", transcript, re.I):
+                print("Exiting..")
+                return doctor_notes
+
+            num_chars_printed = 0
+
+
+def main():
+    # See http://g.co/cloud/speech/docs/languages
+    # for a list of supported languages.
+    language_code = "en-US"  # a BCP-47 language tag
+
+    client = speech.SpeechClient()
+    config = speech.RecognitionConfig(
+        encoding=speech.RecognitionConfig.AudioEncoding.LINEAR16,
+        sample_rate_hertz=RATE,
+        language_code=language_code,
+    )
+
+    streaming_config = speech.StreamingRecognitionConfig(
+        config=config, interim_results=True
+    )
+
+    with MicrophoneStream(RATE, CHUNK) as stream:
+        audio_generator = stream.generator()
+        requests = (
+            speech.StreamingRecognizeRequest(audio_content=content)
+            for content in audio_generator
+        )
+
+        responses = client.streaming_recognize(streaming_config, requests)
+
+        # Now, put the transcription responses to use.
+        doc_notes = listen_print_loop(responses)
+        do_pdf(' '.join(doc_notes))
+        with open("doctor_notes.txt", "w") as outfile:
+            outfile.write("\n".join(doctor_notes))
+
+
+if __name__ == "__main__":
+    analyze_doc()
+    main()

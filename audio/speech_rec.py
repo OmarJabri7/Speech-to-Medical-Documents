@@ -4,6 +4,8 @@ import re
 import sys
 
 from google.cloud import speech
+from utils_pdf import do_pdf
+from doc_analysis import analyze_doc
 
 import pyaudio
 from six.moves import queue
@@ -136,7 +138,7 @@ def listen_print_loop(responses):
             # one of our keywords.
             if re.search(r"\b(exit|quit)\b", transcript, re.I):
                 print("Exiting..")
-                break
+                return doctor_notes
 
             num_chars_printed = 0
 
@@ -167,10 +169,13 @@ def main():
         responses = client.streaming_recognize(streaming_config, requests)
 
         # Now, put the transcription responses to use.
-        listen_print_loop(responses)
+        doc_notes = listen_print_loop(responses)
+        doc_notes.remove('exit')
+        do_pdf(' '.join(doc_notes))
         with open("doctor_notes.txt", "w") as outfile:
             outfile.write("\n".join(doctor_notes))
 
 
 if __name__ == "__main__":
+    analyze_doc()
     main()
