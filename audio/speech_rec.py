@@ -4,8 +4,8 @@ import re
 import sys
 
 from google.cloud import speech
-from utils_pdf import do_pdf
-from doc_analysis import analyze_doc
+from utils.utils_pdf import do_pdf
+from utils.doc_analysis import analyze_doc
 
 import pyaudio
 from six.moves import queue
@@ -170,12 +170,12 @@ def main():
 
         # Now, put the transcription responses to use.
         doc_notes = listen_print_loop(responses)
-        doc_notes.remove('exit')
-        do_pdf(' '.join(doc_notes))
+        if 'exit' in doc_notes: doc_notes.remove('exit')
+        do_pdf('\n'.join(doc_notes))
         with open("doctor_notes.txt", "w") as outfile:
             outfile.write("\n".join(doctor_notes))
 
 
 if __name__ == "__main__":
-    analyze_doc()
+    analyze_doc(['../data','../output'])
     main()

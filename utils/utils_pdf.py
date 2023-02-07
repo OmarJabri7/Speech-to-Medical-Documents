@@ -20,7 +20,7 @@ def do_pdf(text):
     # Create a new PDF with Reportlab
     can = canvas.Canvas(packet, pagesize=letter)
     can.setFont('Helvetica', 4)
-    can.drawString(11, 123, text)
+    can.drawString(11, 121, text)
     # can.create_text(100, 100, text="LAABLE FEE")
     can.showPage()
     can.save()
@@ -42,5 +42,3 @@ def do_pdf(text):
     output.write(outputStream)
     outputStream.close()
 
-#
-# if __name__ == '__main__':

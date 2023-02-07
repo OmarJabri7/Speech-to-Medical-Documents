@@ -5,13 +5,11 @@ import sys
 
 from google.cloud import speech
 from utils.utils_pdf import do_pdf
-from doc_analysis import analyze_doc
-
+from utils.doc_analysis import analyze_doc
+import pytesseract as pt
 import pyaudio
 from six.moves import queue
 import os
-print(os.getcwd())
-print(os.listdir())
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "data/euro-med-353820-86d6bbeb25fd.json"
 
 # Audio recording parameters
@@ -173,10 +171,13 @@ def main():
         # Now, put the transcription responses to use.
         doc_notes = listen_print_loop(responses)
         do_pdf(' '.join(doc_notes))
-        with open("doctor_notes.txt", "w") as outfile:
+        with open("output/doctor_notes.txt", "w") as outfile:
             outfile.write("\n".join(doctor_notes))
 
 
 if __name__ == "__main__":
-    analyze_doc()
+    import warnings
+    warnings.filterwarnings("ignore")
+    pt.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
+    analyze_doc(["data", "output"])
     main()
