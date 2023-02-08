@@ -2,50 +2,73 @@ import os
 
 import cv2
 import pytesseract as pt
-from utils import image_functions as img
+# import image_functions as img
 import pandas as pd
 import numpy as np
+from utils.extractor import extract_text_areas
+from PIL import Image
+import re
 
-def analyze_doc(folders):
-    print(os.getcwd())
-    print(os.listdir())
-    form = cv2.imread(f'{folders[0]}/form.jpeg')
-    form_gray = img.get_grayscale(form)
+def take_notes(block, text, form, img=None):
+    from PIL import Image, ImageDraw, ImageFont
+    if img is None:
+        img = Image.open(f"data/{form}.jpeg")
+    block = block.split(" ")
+    block.remove(".jpeg")
+    dims = block[-4:len(block)]
+    dims_uint = [int(dim) for dim in dims]
+    x, y, width, height = dims_uint
+    x += 2
+    width -= 20
 
-    blur = cv2.GaussianBlur(form_gray, (7, 7), 0)
-    thresh = cv2.threshold(blur, 0, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)[1]
+    text_height = height - 20
+    text_area = Image.new('RGB', (width, text_height), (255, 255, 255))
+    draw = ImageDraw.Draw(text_area)
 
-    # Create rectangular structuring element and dilate
-    kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (3, 3))
-    dilate = cv2.dilate(thresh, kernel, iterations=4)
+    font = ImageFont.truetype("arial.ttf", 12)
+    text_lines = text.split(" ")
 
-    # Find contours and draw rectangle
-    cnts = cv2.findContours(dilate, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-    cnts = cnts[0] if len(cnts) == 2 else cnts[1]
+    text_lines_wrap = []
+    line = ""
+    for word in text_lines:
+        if draw.textsize(line + word, font)[0] <= width:
+            line = line + word + " "
+        else:
+            text_lines_wrap.append(line)
+            line = word + " "
+    text_lines_wrap.append(line)
+
+    padding = 10
+    y_pos = padding
+    for line in text_lines_wrap:
+        draw.text((0, y_pos), line, (0, 0, 0), font=font)
+        y_pos += draw.textsize(line, font)[1]
+
+    text_area = text_area.convert("RGBA")
+    img.paste(text_area, (x, y + 15), text_area)
+    return img
+
+
+
+def analyze_doc(folders, form):
+    rois, dims = extract_text_areas(f'{folders[0]}/{form}.jpeg')
+
     all_texts = pd.DataFrame([], columns=["Sections"])
-    pdf = pt.image_to_pdf_or_hocr(f'{folders[0]}/form.jpeg', extension='pdf')
-    with open(f'{folders[1]}/form.pdf', 'w+b') as f:
-        f.write(pdf)  # pdf type is bytes by defaultxww
-    counter = 0
-    print(len(cnts))
-    for c in cnts:
-        x, y, w, h = cv2.boundingRect(c)
-        sub_img = form[x:x + h, x:x + w]
-        text = pt.image_to_string(sub_img)
+    cnt = 0
+    for roi in rois:
+        text = pt.image_to_string(roi)
         text_dat = pd.DataFrame(text.split("\n\n"))
         all_texts = all_texts.append(pd.DataFrame(np.array(text_dat, dtype=str)))
-        img_dat = pt.image_to_data(sub_img)
-        rect = cv2.rectangle(form, (x, y), (x + w, y + h), (36, 255, 12), 2)
-        # if counter == 2:
-        #     fontFace = cv2.FONT_HERSHEY_PLAIN
-        #     fontScale = 0.5
-        #     color = (0, 0, 0)
-        #     # lineType = cv2.LINE_4
-        #     cv2.putText(rect, "HEY BITCH", (x, y - 50), fontFace, fontScale, color)
-        counter+=1
-    all_texts.to_csv(f'{folders[1]}/form.csv', index=False)
-    cv2.imwrite(f'{folders[1]}/form.png', form)
+        # img_dat = pt.image_to_data(roi)
+        # cv2.imwrite(f'{folders[1]}/sub_imgs/{text}.jpeg', roi)
+        im_pil = Image.fromarray(roi)
+        text = text.replace("\n", "").replace("'", "")
+        text = re.sub("\W+",' ', text )
+        im_pil.save(rf'{folders[1]}/sub_imgs/{text} {" ".join(str(x) for x in dims[cnt])} .jpeg')
+        cnt+=1
+    all_texts.to_csv(rf'{folders[1]}/form.csv', index=False)
+    # cv2.imwrite(f'{folders[1]}/form.png', form)
 
 if __name__ == "__main__":
     pt.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
-    analyze_doc(["data","output"])
+    analyze_doc(["../data","../output"], "gp")

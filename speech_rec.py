@@ -5,7 +5,7 @@ import sys
 
 from google.cloud import speech
 from utils.utils_pdf import do_pdf
-from utils.doc_analysis import analyze_doc
+from utils.doc_analysis import analyze_doc, take_notes
 import pytesseract as pt
 import pyaudio
 from six.moves import queue
@@ -87,7 +87,7 @@ class MicrophoneStream(object):
             yield b"".join(data)
 
 
-def listen_print_loop(responses):
+def listen_print_loop(responses, text_areas, orig_areas, doctor_notes, passphrase, form_name, img):
     """Iterates through server responses and prints them.
 
     The responses passed is a generator that will block until a response
@@ -125,25 +125,37 @@ def listen_print_loop(responses):
         overwrite_chars = " " * (num_chars_printed - len(transcript))
 
         if not result.is_final:
-            sys.stdout.write(transcript + overwrite_chars + "\r")
-            sys.stdout.flush()
+            # sys.stdout.write(transcript + overwrite_chars + "\r")
+            # sys.stdout.flush()
 
             num_chars_printed = len(transcript)
 
         else:
             res = transcript + overwrite_chars
-            print(res)
             doctor_notes.append(res)
+            max_len = max([len(set(value.lower().split(' ')).intersection(set(' '.join(doctor_notes).lower().lower().split(' ')))) for value in text_areas])
+            idx = [index for index, value in enumerate(text_areas) if len(set(value.lower().split(' ')).intersection(set(' '.join(doctor_notes).lower().lower().split(' ')))) == max_len]
+            if (passphrase in ' '.join(doctor_notes).lower()):
+                print("WRITING NOTES")
+                text_area = orig_areas[idx[0]]
+                if img:
+                    img = take_notes(text_area, ' '.join(doctor_notes).replace(passphrase, ""), form_name, img)
+                else:
+                    img = take_notes(text_area, ' '.join(doctor_notes).replace(passphrase, ""), form_name)
+                doctor_notes = []
             # Exit recognition if any of the transcribed phrases could be
             # one of our keywords.
             if re.search(r"\b(exit|quit)\b", transcript, re.I):
                 print("Exiting..")
+                rgb_im = img.convert('RGB')
+                rgb_im.save("output_image.jpg")
                 return doctor_notes
 
             num_chars_printed = 0
 
 
-def main():
+def main(text_areas, orig_areas, passphrase, form_name, img):
+    doctor_notes = []
     # See http://g.co/cloud/speech/docs/languages
     # for a list of supported languages.
     language_code = "en-US"  # a BCP-47 language tag
@@ -169,7 +181,7 @@ def main():
         responses = client.streaming_recognize(streaming_config, requests)
 
         # Now, put the transcription responses to use.
-        doc_notes = listen_print_loop(responses)
+        doc_notes = listen_print_loop(responses, text_areas, orig_areas, doctor_notes, passphrase, form_name, img)
         do_pdf(' '.join(doc_notes))
         with open("output/doctor_notes.txt", "w") as outfile:
             outfile.write("\n".join(doctor_notes))
@@ -178,6 +190,27 @@ def main():
 if __name__ == "__main__":
     import warnings
     warnings.filterwarnings("ignore")
+    form_name = "gp"
     pt.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
-    analyze_doc(["data", "output"])
-    main()
+    analyze_doc(["data", "output"], form_name)
+    import os
+    import nltk
+    from nltk.corpus import stopwords
+
+    nltk.download("stopwords")
+    stop = set(stopwords.words("english"))
+
+    text_areas = os.listdir("output/sub_imgs/")
+    original = text_areas.copy()
+    new_text_areas = []
+    for text in text_areas:
+        text_list = text.split(" ")
+        new_text = []
+        for word in text_list:
+            if word not in stop and not word.isdigit():
+                new_text.append(word)
+        new_text_areas.append(' '.join(new_text))
+    passphrase = "banana"
+    new_text_areas = [w.replace(".jpeg", "").replace("_", "") for w in new_text_areas]
+    print(new_text_areas)
+    main(new_text_areas, original, passphrase, form_name, None)
