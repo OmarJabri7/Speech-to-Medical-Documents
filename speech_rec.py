@@ -190,7 +190,7 @@ def main(text_areas, orig_areas, passphrase, form_name, img):
 if __name__ == "__main__":
     import warnings
     warnings.filterwarnings("ignore")
-    form_name = "gp"
+    form_name = "form"
     pt.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
     analyze_doc(["data", "output"], form_name)
     import os

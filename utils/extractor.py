@@ -30,6 +30,4 @@ def extract_text_areas(img_dir):
         rois.append(img[y:y + h, x:x + w])
         dims.append([x,y,w,h])
         # Display the extracted text area
-        cv2.imshow('ROI', img[y:y + h, x:x + w])
-        cv2.waitKey(0)
     return rois, dims
