@@ -1,34 +1,33 @@
 import cv2
 import numpy as np
 
-# Load the image
-img = cv2.imread('../data/form.jpeg')
 
-# Convert the image to grayscale
-gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+def extract_text_areas(img_dir):
+    # Load the image
+    img = cv2.imread(img_dir)
 
-# Apply adaptive thresholding to the grayscale image
-thresh = cv2.adaptiveThreshold(gray, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY_INV, 11, 3)
+    # Convert the image to grayscale
+    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
-cnts = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-cnts = cnts[0] if len(cnts) == 2 else cnts[1]
+    # Apply adaptive thresholding to the grayscale image
+    thresh = cv2.adaptiveThreshold(gray, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY_INV, 11, 3)
 
-# Loop through all contours
-for cnt in cnts:
-    # Check if the contour is sufficiently large
-    cnt = np.array(cnt, dtype=np.float32)
-    if cv2.contourArea(cnt) < 100:
-        continue
+    cnts = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    cnts = cnts[0] if len(cnts) == 2 else cnts[1]
 
-    # Get the bounding rectangle of the contour
-    x, y, w, h = cv2.boundingRect(cnt)
+    # Loop through all contours
+    rois, dims = [], []
+    for cnt in cnts:
+        # Check if the contour is sufficiently large
+        cnt = np.array(cnt, dtype=np.float32)
+        if cv2.contourArea(cnt) < 500:
+            continue
 
-    # Extract the rectangle text area from the image
-    roi = img[y:y + h, x:x + w]
+        # Get the bounding rectangle of the contour
+        x, y, w, h = cv2.boundingRect(cnt)
 
-    # Display the extracted text area
-    cv2.imshow('ROI', roi)
-    cv2.waitKey(0)
-
-# Release the resources
-cv2.destroyAllWindows()
+        # Extract the rectangle text area from the image
+        rois.append(img[y:y + h, x:x + w])
+        dims.append([x,y,w,h])
+        # Display the extracted text area
+    return rois, dims
