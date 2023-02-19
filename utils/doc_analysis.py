@@ -6,7 +6,7 @@ import pytesseract as pt
 import pandas as pd
 from math import ceil
 import numpy as np
-from utils.extractor import extract_text_areas
+from utils.extractor import extract_text_areas, extract_text_coords, get_closest_text_box
 from PIL import Image
 import re
 
@@ -82,27 +82,32 @@ def check_font_size(img):
             font_size = int(np.mean([h, w]))
             return font_size/100
 
-
 def analyze_doc(folders, form):
-    rois, dims = extract_text_areas(f'{folders[0]}/{form}.jpeg')
-
-    all_texts = pd.DataFrame([], columns=["Sections"])
+    import nltk
+    nltk.download("stopwords")
+    from nltk.corpus import stopwords
+    stop = set(stopwords.words("english"))
+    med_text = np.genfromtxt(f"{folders[0]}/wordlist.txt", dtype=str)
+    img = cv2.imread(f'{folders[0]}/{form}.jpeg')
+    coords = extract_text_coords(img)
+    rois, dims = extract_text_areas(img)
     cnt = 0
     for roi in rois:
         text = pt.image_to_string(roi)
         font_size = check_font_size(roi)
-        text_dat = pd.DataFrame(text.split("\n\n"))
-        all_texts = all_texts.append(pd.DataFrame(np.array(text_dat, dtype=str)))
         im_pil = Image.fromarray(roi)
-        text = text.replace("\n", "").replace("'", "")
-        text = re.sub("\W+",' ', text )
+        if all(word not in med_text for word in text.split(" ")): text += get_closest_text_box(dims[cnt], coords, stop, text)
         if font_size:
             if font_size >= 1:
+                # if not text: text = get_closest_text_box(dims[cnt], coords)
+                text = text.replace("\n", "").replace("'", "")
+                text = re.sub("\W+", ' ', text)
+                text = re.sub('\*+', '*', text)
+                if len(text) >= 150:
+                    text = text[-150:]
                 im_pil.save(rf'{folders[1]}/sub_imgs/{text} {font_size} {" ".join(str(x) for x in dims[cnt])} .jpeg')
         cnt+=1
-    all_texts.to_csv(rf'{folders[1]}/form.csv', index=False)
-    # cv2.imwrite(f'{folders[1]}/form.png', form)
 
 if __name__ == "__main__":
     pt.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
-    analyze_doc(["../data","../output"], "form")
+    analyze_doc(["../data","../output"], "form8")

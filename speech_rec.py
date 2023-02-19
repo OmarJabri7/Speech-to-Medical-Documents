@@ -190,7 +190,28 @@ def main(text_areas, orig_areas, passphrase, form_name, img):
 if __name__ == "__main__":
     import warnings
     warnings.filterwarnings("ignore")
-    form_name = "form"
+    form_name = "form8"
+    from pathlib import Path
+
+    file_type = [txt.name for txt in Path("data/").glob(f"{form_name}*")]
+    file_ext = file_type[0].split(".")[1]
+    print(file_ext)
+    # if file_ext == "pdf":
+    #     print("The file is a PDF document.")
+    #
+    # # check if the file is a DOC
+    # elif file_ext == "doc" or file_ext == "docx":
+    #     from docx2pdf import convert
+    #     from PIL import Image
+    #
+    #     # Convert Word document to PDF
+    #     convert(f"data/{file_type}", f"data/{form_name}.pdf")
+    #
+    #     # Open PDF and convert to image
+    #     with Image.open(f"data/{form_name}.pdf") as img:
+    #         img.save(f"data/{form_name}.jpeg")
+    #
+    # exit(0)
     pt.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
     analyze_doc(["data", "output"], form_name)
     import os
