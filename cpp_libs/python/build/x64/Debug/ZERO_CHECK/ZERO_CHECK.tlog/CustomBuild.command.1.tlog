@@ -1,0 +1,10 @@
+^C:\USERS\OMARJ\DESKTOP\WORK\EURO-MED\CPP_LIBS\PYTHON\BUILD\CMAKEFILES\2D31DB388EE876F45F15B7F371EA921C\GENERATE.STAMP.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/omarj/Desktop/Work/Euro-Med/cpp_libs/python -BC:/Users/omarj/Desktop/Work/Euro-Med/cpp_libs/python/build --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file C:/Users/omarj/Desktop/Work/Euro-Med/cpp_libs/python/build/pyimg.sln
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

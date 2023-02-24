@@ -45,14 +45,15 @@ def find_line_regions(img):
 
     return line_blocks
 
-img = cv2.imread('../data/form5.jpeg')
-line_blocks = find_line_regions(img)
+if __name__ == "__main__":
+    img = cv2.imread('../data/form5.jpeg')
+    line_blocks = find_line_regions(img)
 
-# Draw rectangles around the line blocks
-for i, (label, line_regions) in enumerate(line_blocks.items()):
-    for (x, y, w, h) in line_regions:
-        cv2.rectangle(img, (x, y), (x + w, y + h), (0, 255, 0), 2)
+    # Draw rectangles around the line blocks
+    for i, (label, line_regions) in enumerate(line_blocks.items()):
+        for (x, y, w, h) in line_regions:
+            cv2.rectangle(img, (x, y), (x + w, y + h), (0, 255, 0), 2)
 
-cv2.imshow('image', img)
-cv2.waitKey(0)
-cv2.destroyAllWindows()
+    cv2.imshow('image', img)
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()

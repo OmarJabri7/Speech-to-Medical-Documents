@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\omarj\Desktop\Work\Euro-Med\cpp_libs\build\CMakeFiles\34cc91f267276f2dff6ee1f2b37dd5c9\INSTALL_force.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{CF36A5B6-69C4-3B85-9349-84A3E151E2C2}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\omarj\Desktop\Work\Euro-Med\cpp_libs\src\img_libs.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="C:\Users\omarj\Desktop\Work\Euro-Med\cpp_libs\include\img_libs.hpp">
+      <Filter>include</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\omarj\Desktop\Work\Euro-Med\cpp_libs\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="include">
+      <UniqueIdentifier>{3F20464C-F588-34EB-98BA-D099C75B0428}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{56B6C0F8-4CE1-3245-BF0B-9799BC5C9E75}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

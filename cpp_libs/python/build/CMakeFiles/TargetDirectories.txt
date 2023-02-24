@@ -1,0 +1,4 @@
+C:/Users/omarj/Desktop/Work/Euro-Med/cpp_libs/python/build/CMakeFiles/pyimg.dir
+C:/Users/omarj/Desktop/Work/Euro-Med/cpp_libs/python/build/CMakeFiles/INSTALL.dir
+C:/Users/omarj/Desktop/Work/Euro-Med/cpp_libs/python/build/CMakeFiles/ALL_BUILD.dir
+C:/Users/omarj/Desktop/Work/Euro-Med/cpp_libs/python/build/CMakeFiles/ZERO_CHECK.dir

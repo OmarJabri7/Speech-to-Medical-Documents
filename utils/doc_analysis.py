@@ -1,12 +1,14 @@
 import os
-
+import sys
+sys.path.append('../utils')
 import cv2
 import pytesseract as pt
 # import image_functions as img
 import pandas as pd
 from math import ceil
 import numpy as np
-from utils.extractor import extract_text_areas, extract_text_coords, get_closest_text_box
+from extractor import extract_text_areas, extract_text_coords, get_closest_text_box
+from extract_lines import find_line_regions
 from PIL import Image
 import re
 
@@ -92,6 +94,7 @@ def analyze_doc(folders, form):
     coords = extract_text_coords(img)
     rois, dims = extract_text_areas(img)
     cnt = 0
+    not_found = 0
     for roi in rois:
         text = pt.image_to_string(roi)
         font_size = check_font_size(roi)
@@ -99,14 +102,33 @@ def analyze_doc(folders, form):
         if all(word not in med_text for word in text.split(" ")): text += get_closest_text_box(dims[cnt], coords, stop, text)
         if font_size:
             if font_size >= 1:
-                # if not text: text = get_closest_text_box(dims[cnt], coords)
                 text = text.replace("\n", "").replace("'", "")
                 text = re.sub("\W+", ' ', text)
                 text = re.sub('\*+', '*', text)
                 if len(text) >= 150:
                     text = text[-150:]
                 im_pil.save(rf'{folders[1]}/sub_imgs/{text} {font_size} {" ".join(str(x) for x in dims[cnt])} .jpeg')
+
+            else:
+                not_found+=1
+        else:
+            not_found+=1
         cnt+=1
+    if not_found > 0:
+        line_coords = []
+        line_blocks = find_line_regions(img)
+        for i, (label, line_regions) in enumerate(line_blocks.items()):
+            for (x, y, w, h) in line_regions:
+                line_coords.append((x,y,w,h))
+        for coord in line_coords:
+            text = get_closest_text_box(coord, coords, stop, text)
+            text = text.replace("\n", "").replace("'", "")
+            text = re.sub("\W+", ' ', text)
+            text = re.sub('\*+', '*', text)
+
+    else:
+        return None
+
 
 if __name__ == "__main__":
     pt.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
