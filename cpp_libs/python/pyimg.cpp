@@ -4,7 +4,7 @@
 namespace py = pybind11;
 
 PYBIND11_MODULE(pyimg, m) {
-    py::class_<MyCppLibrary>(m, "MyCppLibrary")
+    py::class_<ImgUtils>(m, "ImgUtils")
         .def(py::init<>())
-        .def("add", &MyCppLibrary::add);
+        .def("analyze_doc", &ImgUtils::analyze_doc);
 }

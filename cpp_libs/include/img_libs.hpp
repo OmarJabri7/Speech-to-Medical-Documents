@@ -1,10 +1,12 @@
-#ifndef MY_CPP_LIBRARY_HPP
-#define MY_CPP_LIBRARY_HPP
+#ifndef Img_Utils_HPP
+#define Img_Utils_HPP
+#include <vector>
+#include <string>
 
-class MyCppLibrary {
+class ImgUtils {
 public:
-    MyCppLibrary();
-    int add(int a, int b);
+    ImgUtils();
+    void analyze_doc(std::vector<std::string> folders, std::string form);
 };
 
-#endif  // MY_CPP_LIBRARY_HPP
+#endif  // Img_Utils_HPP

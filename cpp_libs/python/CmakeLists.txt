@@ -2,22 +2,31 @@ cmake_minimum_required(VERSION 3.0)
 
 set(CMAKE_CXX_STANDARD 17)
 
-
 project(pyimg)
 
-include_directories("../include")
-include_directories("../src")
-include_directories("../python")
+# Set OpenCV_DIR to the location of OpenCVConfig.cmake
+set(OpenCV_DIR "C:/opencv/build")
+find_package(OpenCV REQUIRED)
 
-# file (GLOB SOURCE_FILES "src/img_libs.cpp")
-# file (GLOB HEADER_FILES "include/img_libs.hpp")
+# Add img_libs target
+# add_library(img_libs SHARED
+#   ../src/img_libs.cpp
+#   ../include/img_libs.hpp
+# )
+add_library(img_libs STATIC
+  ../src/img_libs.cpp
+  ../include/img_libs.hpp
+)
+# Include OpenCV headers
+target_include_directories(img_libs PUBLIC ${OpenCV_INCLUDE_DIRS})
+target_include_directories(img_libs PUBLIC ../include)
+
+# Link against OpenCV libraries
+target_link_libraries(img_libs PUBLIC ${OpenCV_LIBS})
+
 set(SOURCE_FILES "../src/img_libs.cpp")
 set(HEADER_FILES "../include/img_libs.hpp")
 set(PYTHON_FILES "../python/pyimg.cpp")
-
-# Set up such that XCode organizes the files
-# source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} PREFIX "src" FILES ${SOURCE_FILES} ${HEADER_FILES} ${PYTHON_FILES})
-
 
 find_package(pybind11 REQUIRED)
 pybind11_add_module(pyimg 
@@ -26,9 +35,10 @@ pybind11_add_module(pyimg
 	${PYTHON_FILES}
 )
 
-# target_link_libraries(img_libs PUBLIC)
+# Link against img_libs and OpenCV
+target_link_libraries(pyimg PUBLIC img_libs ${OpenCV_LIBS})
 
 install(TARGETS pyimg
   COMPONENT python
   LIBRARY DESTINATION "${PYTHON_LIBRARY_DIR}"
-  )
+)

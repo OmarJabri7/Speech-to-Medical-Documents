@@ -7,6 +7,11 @@ project(pyimg VERSION 0.1.0)
 # Include dir
 include_directories(include)
 
+set(OpenCV_DIR C:/opencv/build)
+
+# Find OpenCV
+find_package(OpenCV REQUIRED)
+
 # Src
 AUX_SOURCE_DIRECTORY(src SRC_FILES)
 
@@ -31,7 +36,10 @@ add_library(img_libs SHARED
 )
 
 # Include directories
-target_include_directories(img_libs PRIVATE include)
+target_include_directories(img_libs PRIVATE include ${OpenCV_INCLUDE_DIRS})
+
+# Add OpenCV libraries to linker command
+target_link_libraries(img_libs PRIVATE ${OpenCV_LIBS})
 
 # Install
 install(TARGETS img_libs DESTINATION lib)

@@ -12,6 +12,8 @@ C:/Program Files/CMake/share/cmake-3.26/Modules/Compiler/CMakeCommonCompilerMacr
 C:/Program Files/CMake/share/cmake-3.26/Modules/Compiler/MSVC-C.cmake
 C:/Program Files/CMake/share/cmake-3.26/Modules/Compiler/MSVC-CXX.cmake
 C:/Program Files/CMake/share/cmake-3.26/Modules/Compiler/MSVC.cmake
+C:/Program Files/CMake/share/cmake-3.26/Modules/FindPackageHandleStandardArgs.cmake
+C:/Program Files/CMake/share/cmake-3.26/Modules/FindPackageMessage.cmake
 C:/Program Files/CMake/share/cmake-3.26/Modules/Platform/Windows-MSVC-C.cmake
 C:/Program Files/CMake/share/cmake-3.26/Modules/Platform/Windows-MSVC-CXX.cmake
 C:/Program Files/CMake/share/cmake-3.26/Modules/Platform/Windows-MSVC.cmake
@@ -22,3 +24,9 @@ C:/Users/omarj/Desktop/Work/Euro-Med/cpp_libs/build/CMakeFiles/3.26.0-rc3/CMakeC
 C:/Users/omarj/Desktop/Work/Euro-Med/cpp_libs/build/CMakeFiles/3.26.0-rc3/CMakeCXXCompiler.cmake
 C:/Users/omarj/Desktop/Work/Euro-Med/cpp_libs/build/CMakeFiles/3.26.0-rc3/CMakeRCCompiler.cmake
 C:/Users/omarj/Desktop/Work/Euro-Med/cpp_libs/build/CMakeFiles/3.26.0-rc3/CMakeSystem.cmake
+C:/opencv/build/OpenCVConfig-version.cmake
+C:/opencv/build/OpenCVConfig.cmake
+C:/opencv/build/x64/vc15/lib/OpenCVConfig.cmake
+C:/opencv/build/x64/vc15/lib/OpenCVModules-debug.cmake
+C:/opencv/build/x64/vc15/lib/OpenCVModules-release.cmake
+C:/opencv/build/x64/vc15/lib/OpenCVModules.cmake

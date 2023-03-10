@@ -190,7 +190,7 @@ def main(text_areas, orig_areas, passphrase, form_name, img):
 if __name__ == "__main__":
     import warnings
     warnings.filterwarnings("ignore")
-    form_name = "form8"
+    form_name = "form7"
     from pathlib import Path
 
     file_type = [txt.name for txt in Path("data/").glob(f"{form_name}*")]

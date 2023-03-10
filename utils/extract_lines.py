@@ -30,7 +30,6 @@ def find_line_regions(img):
         # if h < img.shape[0] * 0.02: # Ignore regions that are less than 2% of the height of the image
         #     continue
         line_regions.append((x, y, w, h))
-    print(line_regions)
     # Use MeanShift clustering to group the line regions
     X = np.array(line_regions)
     bandwidth = X.shape[0] // 10 # Adjust this value to control the clustering sensitivity

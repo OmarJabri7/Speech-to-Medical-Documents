@@ -7,8 +7,8 @@ import pytesseract as pt
 import pandas as pd
 from math import ceil
 import numpy as np
-from extractor import extract_text_areas, extract_text_coords, get_closest_text_box
-from extract_lines import find_line_regions
+from utils.extractor  import extract_text_areas, extract_text_coords, get_closest_text_box
+from utils.extract_lines import find_line_regions
 from PIL import Image
 import re
 

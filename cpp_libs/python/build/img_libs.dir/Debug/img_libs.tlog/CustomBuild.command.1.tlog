@@ -1,0 +1,10 @@
+^C:\USERS\OMARJ\DESKTOP\WORK\EURO-MED\CPP_LIBS\PYTHON\CMAKELISTS.TXT
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/omarj/Desktop/Work/Euro-Med/cpp_libs/python -BC:/Users/omarj/Desktop/Work/Euro-Med/cpp_libs/python/build --check-stamp-file C:/Users/omarj/Desktop/Work/Euro-Med/cpp_libs/python/build/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
